@@ -28,7 +28,11 @@ public class AuthorController {
         author2.setName("Truong Van Voon");
         author2.setYear(1988);
 
-        return new Author[] {author1, author2};
+        Author author3 = new Author();
+        author3.setId(3);
+        author3.setName("Truong Van Voon add Lombok");
+        author3.setYear(1988);
+        return new Author[] {author1, author2, author3};
     }
 
     @PostMapping

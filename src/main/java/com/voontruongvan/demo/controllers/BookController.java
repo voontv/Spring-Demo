@@ -39,8 +39,17 @@ public class BookController {
         book4.setName("Training Spring");
         book4.setYear(2019);
 
+        Book book5 = new Book();
+        book5.setId(5);
+        book5.setName("Training lombok");
+        book5.setYear(2019);
 
-        return new Book[]{book1, book2, book3, book4};
+        Book book6 = new Book();
+        book6.setId(6);
+        book6.setName("Training lombok fixed bug");
+        book6.setYear(2019);
+
+        return new Book[]{book1, book2, book3, book4, book5, book6};
     }
 
     @DeleteMapping("/{id}")

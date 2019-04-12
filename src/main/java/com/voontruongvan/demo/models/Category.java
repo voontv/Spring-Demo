@@ -1,5 +1,8 @@
 package com.voontruongvan.demo.models;
 
+import lombok.Data;
+
+@Data
 public class Category {
 
     private int id;
@@ -8,32 +11,4 @@ public class Category {
 
     private String ageLimit;
 
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getAgeLimit() {
-        return this.ageLimit;
-    }
-
-    public void setAgeLimit(String ageLimit) {
-        this.ageLimit = ageLimit;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Category id %d %s and age request %s",id,type,ageLimit);
-    }
 }
