@@ -3,12 +3,11 @@ package com.voontruongvan.demo.models;
 import lombok.Data;
 
 @Data
-public class Book {
+public class Author {
 
     private int id;
 
     private String name;
 
     private int year;
-
 }
