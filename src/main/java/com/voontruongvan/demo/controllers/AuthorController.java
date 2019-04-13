@@ -1,53 +1,48 @@
 package com.voontruongvan.demo.controllers;
 
 import com.voontruongvan.demo.models.Author;
+import com.voontruongvan.demo.repositories.AuthorRepository;
+import org.hibernate.annotations.Parameter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/voon/author")
+@RequestMapping("/api/authors")
 public class AuthorController {
 
+    @Autowired
+    private  AuthorRepository authorRepository;
+
     @GetMapping("/{id}")
-    Author get(@PathVariable int id) {
-        Author author = new Author();
-        author.setId(id);
-        author.setName("Vo Quang Hoa");
-        author.setYear(1989);
-        return author;
+    Optional<Author> get(@PathVariable int id) {
+        return authorRepository.findById(id);
     }
 
     @GetMapping()
-    Author[] get(){
-        Author author1 = new Author();
-        author1.setId(1);
-        author1.setName("Vo Quang Hoa");
-        author1.setYear(1989);
-
-        Author author2 = new Author();
-        author2.setId(2);
-        author2.setName("Truong Van Voon");
-        author2.setYear(1988);
-
-        Author author3 = new Author();
-        author3.setId(3);
-        author3.setName("Truong Van Voon add Lombok");
-        author3.setYear(1988);
-        return new Author[] {author1, author2, author3};
+    Iterable<Author> get(){
+        return authorRepository.findAll();
     }
 
     @PostMapping
     void post(@RequestBody Author author) {
         System.out.println("Created author"+author);
+        author.setName("Refactoring");
+        authorRepository.save(author);
     }
 
     @PutMapping
     void put(@RequestBody Author author) {
         System.out.println("Update author"+author);
+        authorRepository.save(author);
     }
 
     @DeleteMapping
     void delete(@PathVariable int id) {
         System.out.println("Deleted author id "+id);
+        authorRepository.deleteById(id);
     }
 
 }

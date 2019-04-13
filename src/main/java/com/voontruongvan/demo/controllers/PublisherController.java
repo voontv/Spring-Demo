@@ -11,7 +11,7 @@ import java.util.Optional;
 @RequestMapping("/api/publisher")
 public class PublisherController {
 
-
+    @Autowired
     private PublisherRepository publisherRepository;
 
     @GetMapping("/{id}")
