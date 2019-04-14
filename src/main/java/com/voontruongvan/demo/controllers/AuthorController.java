@@ -26,6 +26,15 @@ public class AuthorController {
         return authorRepository.findAll();
     }
 
+    @GetMapping("/find")
+    List<Author> findByEmail(@RequestParam String email) {
+        return authorRepository.findByEmailContaining(email);
+    }
+
+    @GetMapping("/findName")
+    List<Author> findByName(@RequestParam String name) {
+        return authorRepository.findByNameContaining(name);
+    }
     @PostMapping
     void post(@RequestBody Author author) {
         System.out.println("Created author"+author);
@@ -39,10 +48,24 @@ public class AuthorController {
         authorRepository.save(author);
     }
 
+    @DeleteMapping("/delete")
+    void delete(@RequestParam int id, @RequestParam String name) {
+        authorRepository.deleteAllByIdAndAndName(id, name);
+    }
+
     @DeleteMapping
     void delete(@PathVariable int id) {
         System.out.println("Deleted author id "+id);
         authorRepository.deleteById(id);
     }
 
+    @PutMapping("/updateEmail")
+    void updateEmailById(@RequestParam int id, @RequestParam String email) {
+        authorRepository.updateEmailById(id, email);
+    }
+
+    @PutMapping("/updatePrice")
+    void updteAllPriceForAuthor() {
+        authorRepository.updateAllPriceForAuthor();
+    }
 }

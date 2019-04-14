@@ -19,4 +19,5 @@ public class Author {
     private String email;
     private String website;
     private String favoriteQuote;
+    private int price;
 }
