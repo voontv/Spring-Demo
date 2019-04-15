@@ -28,13 +28,8 @@ public class BookController {
     }
 
     @GetMapping("/between")
-    List<Book> get(@RequestParam int max, @RequestParam int min) {
-        return bookRepository.findBookByPriceBetween(max, min);
-    }
-
-    @GetMapping("/betweenQuery")
-    List<Book> getBetweenWithQuery(@RequestParam int max, @RequestParam int min) {
-        return bookRepository.findBookByPriceBetweenWithQuery(max, min);
+    List<Book> get(@RequestParam int min, @RequestParam int max) {
+        return bookRepository.findBookByPriceBetween(min, max);
     }
 
     @GetMapping
