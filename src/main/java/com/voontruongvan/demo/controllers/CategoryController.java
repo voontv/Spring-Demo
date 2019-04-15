@@ -33,7 +33,6 @@ public class CategoryController {
     @PostMapping()
     void post(@RequestBody Category category) {
         System.out.println("Create category " + category);
-        category.setId(0);
         categoryRepository.save(category);
     }
 
