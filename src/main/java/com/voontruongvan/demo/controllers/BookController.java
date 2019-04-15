@@ -40,9 +40,9 @@ public class BookController {
     @GetMapping
     List<Book> get(@RequestParam (value = "q", defaultValue = "") String q, @RequestParam(value =  "oderType", defaultValue = "asc") String oderType){
         if(oderType.equalsIgnoreCase("desc")) {
-            return bookRepository.findAllByOrderByNameAuthorDesc(q);
+            return bookRepository.findAllByNameOrderByNameDesc(q);
         } else {
-            return bookRepository.findAllByOrderByNameAuthorAsc(q);
+            return bookRepository.findAllByNameOrderByNameAsc(q);
         }
     }
 
