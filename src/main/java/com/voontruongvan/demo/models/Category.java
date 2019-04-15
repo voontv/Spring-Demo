@@ -1,6 +1,7 @@
 package com.voontruongvan.demo.models;
 
 import lombok.Data;
+import org.hibernate.annotations.ValueGenerationType;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,14 +10,15 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Book {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String name;
-    private String author;
-    private int year;
-    private int price;
+    private String type;
+
+    private int ageLimit;
+
+
 }

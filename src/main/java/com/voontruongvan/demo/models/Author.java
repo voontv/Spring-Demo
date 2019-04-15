@@ -9,14 +9,15 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Book {
+public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String name;
-    private String author;
-    private int year;
+    private String email;
+    private String website;
+    private String favoriteQuote;
     private int price;
 }
