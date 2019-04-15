@@ -11,11 +11,15 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     List<Book> findBookByPriceBetween(int min, int max);
 
     @Query("select u from Book u where price <= :max AND price >= :min")
-    List<Book> findBookByPriceBetweenWithQuery(int min, int max);
+    List<Book> findBookByPriceBetweenWithQuery(int max, int min);
 
     @Query("select u from Book u where name like %:pattern%")
     Iterable<Book> findByNameContaining(String pattern);
 
-    //List<Book> findAllByOrderByNameAuthorAsc();
+    @Query("Select u from Book u where name like %:name% order by name asc")
+    List<Book> findAllByOrderByNameAuthorAsc(String name);
+
+    @Query("Select u from Book u where name like %:name% order by name desc")
+    List<Book> findAllByOrderByNameAuthorDesc(String name);
 
 }

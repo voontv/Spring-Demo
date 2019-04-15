@@ -37,16 +37,13 @@ public class BookController {
         return bookRepository.findBookByPriceBetweenWithQuery(max, min);
     }
 
-    /*@GetMapping
-    Iterable<Book> get(){
-        return bookRepository.findAll();
-    }*/
-
-    @GetMapping()
-    String get(@RequestParam(value = "q", defaultValue = "") String q,
-                   @RequestParam( value = "order", defaultValue = "") String order,
-                   @RequestParam(value = "oderType", defaultValue = "ASC", required = false) String oderType){
-        return "q "+q+" order "+order+" oderType "+oderType;
+    @GetMapping
+    List<Book> get(@RequestParam (value = "q", defaultValue = "") String q, @RequestParam(value =  "oderType", defaultValue = "asc") String oderType){
+        if(oderType.equalsIgnoreCase("desc")) {
+            return bookRepository.findAllByOrderByNameAuthorDesc(q);
+        } else {
+            return bookRepository.findAllByOrderByNameAuthorAsc(q);
+        }
     }
 
     @DeleteMapping("/{id}")
