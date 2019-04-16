@@ -2,10 +2,8 @@ package com.voontruongvan.demo.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -16,8 +14,13 @@ public class Author {
     private int id;
 
     private String name;
+
     private String email;
+
     private String website;
+
     private String favoriteQuote;
-    private int price;
+
+    @OneToMany
+    private Set<Book> books;
 }

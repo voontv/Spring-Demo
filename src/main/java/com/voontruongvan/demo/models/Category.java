@@ -1,7 +1,6 @@
 package com.voontruongvan.demo.models;
 
 import lombok.Data;
-import org.hibernate.annotations.ValueGenerationType;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,9 +15,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String type;
+    private String label;
 
     private int ageLimit;
-
-
 }

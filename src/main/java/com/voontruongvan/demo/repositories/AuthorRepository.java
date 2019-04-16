@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AuthorRepository extends CrudRepository<Author, Integer> {
 
@@ -18,16 +17,11 @@ public interface AuthorRepository extends CrudRepository<Author, Integer> {
 
     @Transactional
     @Modifying
-    @Query("delete Author  where id = :id and name = :name")
+    @Query("delete from Author u  where id = :id and name = :name")
     void deleteAllByIdAndAndName(int id, String name);
 
     @Transactional
     @Modifying
     @Query(value = "update Author  set email = :newEmail where id = :id")
     void updateEmailById(int id, String newEmail);
-
-    @Transactional
-    @Modifying
-    @Query("update Author  set price = id*3.9")
-    void updateAllPriceForAuthor();
 }

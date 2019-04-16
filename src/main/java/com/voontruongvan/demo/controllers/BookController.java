@@ -1,9 +1,9 @@
 package com.voontruongvan.demo.controllers;
 
+import com.voontruongvan.demo.NotFoundException;
 import com.voontruongvan.demo.models.Book;
+import com.voontruongvan.demo.repositories.AuthorRepository;
 import com.voontruongvan.demo.repositories.BookRepository;
-import org.hibernate.validator.constraints.ParameterScriptAssert;
-import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +17,24 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
+    private  AuthorRepository authorRepository;
     @GetMapping("/find")
     Iterable<Book> find(@RequestParam String name){
         return bookRepository.findByNameContaining(name);
     }
 
     @GetMapping("/{id}")
-    Optional<Book> get(@PathVariable int id){
-        return bookRepository.findById(id);
+    Book get(@PathVariable int id){
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if(optionalBook.isPresent()) {
+            return bookRepository.findById(id).get();
+        }
+        throw new NotFoundException(String.format("Book id %d not found",id));
+    }
+
+    @GetMapping("/all")
+    Iterable<Book> get() {
+        return bookRepository.findAll();
     }
 
     @GetMapping("/between")
@@ -43,6 +53,9 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     void delete(@PathVariable int id){
+        if(!bookRepository.existsById(id)) {
+            throw new NotFoundException(String.format("Book id %d not found",id));
+        }
         bookRepository.deleteById(id);
     }
 

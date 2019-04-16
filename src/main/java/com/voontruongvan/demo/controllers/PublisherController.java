@@ -26,20 +26,17 @@ public class PublisherController {
 
     @DeleteMapping("/{id}")
     void deleteted(@PathVariable int id) {
-        System.out.println("Deleted publisher "+id);
         publisherRepository.deleteById(id);
     }
 
     @PostMapping()
     void post(@RequestBody Publisher publisher) {
-        System.out.println("Created publisher ");
         publisher.setId(0);
         publisherRepository.save(publisher);
     }
 
     @PutMapping()
     void put(@RequestBody Publisher publisher) {
-        System.out.println("Update publisher ");
         publisherRepository.save(publisher);
     }
 }

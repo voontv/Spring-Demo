@@ -26,19 +26,16 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     void delete(@PathVariable int id) {
-        System.out.println("Deleted category have id" +id);
         categoryRepository.deleteById(id);
     }
 
     @PostMapping()
     void post(@RequestBody Category category) {
-        System.out.println("Create category " + category);
         categoryRepository.save(category);
     }
 
     @PutMapping()
     void put(@RequestBody Category category) {
-        System.out.println("Update category " + category);
         categoryRepository.save(category);
     }
 }
