@@ -5,6 +5,7 @@ import com.voontruongvan.demo.models.Book;
 import com.voontruongvan.demo.repositories.AuthorRepository;
 import com.voontruongvan.demo.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class BookController {
         throw new NotFoundException(String.format("Book id %d not found",id));
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     Iterable<Book> get() {
         return bookRepository.findAll();
     }
@@ -41,7 +42,7 @@ public class BookController {
     List<Book> get(@RequestParam int min, @RequestParam int max) {
         return bookRepository.findBookByPriceBetween(min, max);
     }
-
+    /*
     @GetMapping
     List<Book> get(@RequestParam (value = "q", defaultValue = "") String q, @RequestParam(value =  "oderType", defaultValue = "asc") String oderType){
         if(oderType.equalsIgnoreCase("desc")) {
@@ -49,8 +50,8 @@ public class BookController {
         } else {
             return bookRepository.findAllByNameOrderByNameAsc(q);
         }
-    }
-
+    }*/
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     void delete(@PathVariable int id){
         if(!bookRepository.existsById(id)) {
