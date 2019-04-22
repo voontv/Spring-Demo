@@ -1,7 +1,10 @@
 package com.voontruongvan.demo.repositories;
 
 import com.voontruongvan.demo.models.Category;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CategoryRepository extends CrudRepository<Category, Integer> {
+import java.util.List;
+
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
+
 }

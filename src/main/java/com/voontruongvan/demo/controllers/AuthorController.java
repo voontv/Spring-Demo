@@ -20,12 +20,21 @@ public class AuthorController {
         return authorRepository.findById(id);
     }
 
+    @GetMapping("/allQuery")
+    List<Author> get(@RequestParam String name) {
+        return authorRepository.findByNameContains(name);
+    }
     @GetMapping()
     Iterable<Author> get(){
         return authorRepository.findAll();
     }
 
-    @GetMapping("/find")
+    @GetMapping("/emailQuery")
+    List<Author> getMailByQuery(@RequestParam String email) {
+        return authorRepository.findByEmailContainingByQuery(email);
+    }
+
+    @GetMapping("/email")
     List<Author> findByEmail(@RequestParam String email) {
         return authorRepository.findByEmailContaining(email);
     }
@@ -44,11 +53,6 @@ public class AuthorController {
     @PutMapping
     void put(@RequestBody Author author) {
         authorRepository.save(author);
-    }
-
-    @DeleteMapping("/delete")
-    void delete(@RequestParam int id, @RequestParam String name) {
-        authorRepository.deleteAllByIdAndAndName(id, name);
     }
 
     @DeleteMapping

@@ -5,7 +5,7 @@ import com.voontruongvan.demo.models.Book;
 import com.voontruongvan.demo.repositories.AuthorRepository;
 import com.voontruongvan.demo.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,23 +35,24 @@ public class BookController {
 
     @GetMapping()
     Iterable<Book> get() {
-        return bookRepository.findAll();
+        return bookRepository.findAll(Sort.by("id"));
     }
 
     @GetMapping("/between")
     List<Book> get(@RequestParam int min, @RequestParam int max) {
         return bookRepository.findBookByPriceBetween(min, max);
     }
-    /*
-    @GetMapping
-    List<Book> get(@RequestParam (value = "q", defaultValue = "") String q, @RequestParam(value =  "oderType", defaultValue = "asc") String oderType){
-        if(oderType.equalsIgnoreCase("desc")) {
-            return bookRepository.findAllByNameOrderByNameDesc(q);
+
+    @GetMapping("/orderBy")
+    List<Book> get(@RequestParam(value =  "oderType", defaultValue = "asc") String oderType){
+        if(!oderType.equalsIgnoreCase("desc")) {
+            return bookRepository.findByNameContainsOrderByNameAsc("");
         } else {
-            return bookRepository.findAllByNameOrderByNameAsc(q);
+            return bookRepository.findByNameContainsOrderByNameDesc("");
         }
-    }*/
-    @Secured("ROLE_ADMIN")
+    }
+
+    //@Secured("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     void delete(@PathVariable int id){
         if(!bookRepository.existsById(id)) {
