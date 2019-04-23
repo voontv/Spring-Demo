@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Data
 @Entity
-public class Book {
+public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,12 +15,12 @@ public class Book {
 
     private String name;
 
-    @ManyToOne
-    private Author author;
+    private String email;
 
-    @ManyToMany
-    private Set<Category> categories;
+    private String website;
 
-    private int year;
-    private int price;
+    private String favoriteQuote;
+
+    @OneToMany
+    private Set<Book> books;
 }
