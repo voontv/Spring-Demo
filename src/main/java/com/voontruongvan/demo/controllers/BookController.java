@@ -18,10 +18,13 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
-    private  AuthorRepository authorRepository;
     @GetMapping("/find")
     Iterable<Book> find(@RequestParam String name){
-        return bookRepository.findByNameContaining(name);
+        List<Book> bookList = (List<Book>) bookRepository.findByNameContaining(name);
+        if(!bookList.isEmpty()) {
+            return bookRepository.findByNameContaining(name);
+        }
+        throw new NotFoundException(String.format("Book have name %s not found",name));
     }
 
     @GetMapping("/{id}")
@@ -35,21 +38,32 @@ public class BookController {
 
     @GetMapping()
     Iterable<Book> get() {
-        return bookRepository.findAll(Sort.by("id"));
+        List<Book> bookList = (List<Book>) bookRepository.findAll(Sort.by("id"));
+        if(bookList.isEmpty()) {
+            return bookRepository.findAll(Sort.by("id"));
+        }
+        throw new NotFoundException(String.format("I not see any book in databse"));
     }
 
     @GetMapping("/between")
     List<Book> get(@RequestParam int min, @RequestParam int max) {
-        return bookRepository.findBookByPriceBetween(min, max);
+        if(!bookRepository.findBookByPriceBetween(min, max).isEmpty()) {
+            return bookRepository.findBookByPriceBetween(min, max);
+        }
+        throw new NotFoundException(String.format("Book have price between %d and %d not found",min,max));
     }
 
     @GetMapping("/orderBy")
-    List<Book> get(@RequestParam(value =  "oderType", defaultValue = "asc") String oderType){
-        if(!oderType.equalsIgnoreCase("desc")) {
-            return bookRepository.findByNameContainsOrderByNameAsc("");
-        } else {
-            return bookRepository.findByNameContainsOrderByNameDesc("");
+    List<Book> get(@RequestParam String name, @RequestParam(value =  "oderType", defaultValue = "asc") String oderType){
+
+        if(!bookRepository.findAllByNameContains(name).isEmpty()) {
+            if (!oderType.equalsIgnoreCase("desc")) {
+                return bookRepository.findByNameContainsOrderByNameAsc(name);
+            } else {
+                return bookRepository.findByNameContainsOrderByNameDesc(name);
+            }
         }
+        throw new NotFoundException(String.format("Book have name %s not found",name));
     }
 
     //@Secured("ROLE_ADMIN")

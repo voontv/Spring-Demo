@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/publisher")
+@RequestMapping("/api/publishers")
 public class PublisherController {
 
     @Autowired

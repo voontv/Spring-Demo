@@ -7,7 +7,7 @@ import com.voontruongvan.demo.repositories.CategoryRepository;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/categorys")
+@RequestMapping("/api/categories")
 public class CategoryController {
 
     @Autowired
